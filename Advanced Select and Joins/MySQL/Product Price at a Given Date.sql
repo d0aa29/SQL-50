@@ -1,0 +1,10 @@
+select distinct p.product_id ,
+ COALESCE(
+        (select new_price 
+        from Products p2 
+        where p.product_id=p2.product_id
+        and p2.change_date<= '2019-08-16'
+        order by change_date DESC 
+        LIMIT 1)
+          ,10) as price 
+from Products p 
